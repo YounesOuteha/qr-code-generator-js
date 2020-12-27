@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>QR Scanner</title>
+</head>
+<body>
+    <div id="option">
+        <div id="btn1" class="active">&#8230;</div>
+        <div id="btn2">&#9974;</div>
+    </div>
+    <div id="main">
+        <div id="box1">
+            <div id="inputs">
+                <input type="text" placeholder="Enter your text" id="data" />
+                <div id="msg">Hit to generate QR Code</div>
+            </div>
+            <div id="outputbox">
+                <img src="QrCode.png" alt="A QR Code">
+            </div>
+        </div>
+
+        <div class="box2">
+           
+        </div>
+    </div>
+</body>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<script type="text/javascript">
+/* Instantiate a variable from our QRCode class, to use it as an object */
+    var qrcode = new QRCode('outputbox');
+    /* Function resposible for making the QR code */
+    function makeCode(){
+        /* Selectiong the input and asign it to a variable */
+        var input = document.getElementById('data');
+        /* making the QR code according to qhat the user tapes in the input */
+        qrcode.makeCode(input.value);
+    }
+    /* Making our QR code on losing focus on the input element */
+    $('#data').on('blur', function(){
+        makeCode();
+    }).on('keydown', function(e){
+        /* Making our QR code once hitting the enter button on keyboard */
+        if(e.keyCode==13){
+            makeCode();
+        }
+    })
+    /* Clearing the input field for a new entry */
+    $('#btn1').click(function(){
+        $('#data').val('');
+        $('#data').focus();
+    })
+    /* QR created once clicking on the end of typing button */
+    $('#btn2').click(function(){
+        makeCode();
+    })
+</script>
+
+
+</html>
